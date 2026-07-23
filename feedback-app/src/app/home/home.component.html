@@ -1,0 +1,58 @@
+<section class="hero-grid">
+  <mat-card class="hero-card">
+    <span class="eyebrow">Canal de feedback</span>
+    <h1>Compartilhe uma avaliação rápida.</h1>
+    <p>
+      Registre a sua experiência em poucos segundos. O formulário envia os dados para a camada de serviço já preparada para integração com Azure Functions.
+    </p>
+
+    <form class="feedback-form" [formGroup]="form" (ngSubmit)="submit()">
+      <mat-form-field appearance="outline">
+        <mat-label>Descrição</mat-label>
+        <textarea matInput rows="5" formControlName="descricao" placeholder="Escreva seu feedback"></textarea>
+        <mat-error *ngIf="form.controls.descricao.hasError('required')">Informe uma descrição.</mat-error>
+        <mat-error *ngIf="form.controls.descricao.hasError('minlength')">Use pelo menos 5 caracteres.</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Nota</mat-label>
+        <input matInput type="number" min="0" max="10" formControlName="nota" />
+        <mat-hint>Valor entre 0 e 10</mat-hint>
+        <mat-error *ngIf="form.controls.nota.hasError('required')">Informe uma nota.</mat-error>
+        <mat-error *ngIf="form.controls.nota.hasError('min') || form.controls.nota.hasError('max')">A nota deve estar entre 0 e 10.</mat-error>
+      </mat-form-field>
+
+      <button mat-raised-button color="primary" type="submit" [disabled]="sending">
+        <mat-icon>send</mat-icon>
+        <span>{{ sending ? 'Enviando...' : 'Enviar Feedback' }}</span>
+      </button>
+    </form>
+  </mat-card>
+
+  <mat-card class="side-card">
+    <h2>Como funciona</h2>
+    <mat-list>
+      <mat-list-item>
+        <mat-icon matListItemIcon>touch_app</mat-icon>
+        <div matListItemTitle>Envio simples</div>
+        <div matListItemLine>Formulário direto na página inicial.</div>
+      </mat-list-item>
+      <mat-list-item>
+        <mat-icon matListItemIcon>cloud</mat-icon>
+        <div matListItemTitle>Integração pronta</div>
+        <div matListItemLine>Endpoint configurável por ambiente.</div>
+      </mat-list-item>
+      <mat-list-item>
+        <mat-icon matListItemIcon>analytics</mat-icon>
+        <div matListItemTitle>Relatórios</div>
+        <div matListItemLine>Página administrativa com tabela, gráfico e estatísticas.</div>
+      </mat-list-item>
+    </mat-list>
+
+    <mat-divider></mat-divider>
+
+    <div class="hint-box">
+      Acesse <strong>/admin</strong> para consultar os feedbacks recebidos e acompanhar a distribuição das notas.
+    </div>
+  </mat-card>
+</section>

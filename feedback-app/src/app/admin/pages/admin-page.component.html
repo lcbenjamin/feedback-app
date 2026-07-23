@@ -1,0 +1,85 @@
+<section class="admin-layout">
+  <mat-card class="overview-card">
+    <span class="eyebrow">Área administrativa</span>
+    <h1>Feedbacks recebidos</h1>
+    <p>Visão geral com estatísticas, distribuição das notas e listagem dos registros mais recentes.</p>
+
+    <ng-container *ngIf="stats$ | async as stats">
+      <div class="metrics-grid">
+        <mat-card class="metric-card">
+          <span>Total</span>
+          <strong>{{ stats.total }}</strong>
+        </mat-card>
+
+        <mat-card class="metric-card">
+          <span>Média das notas</span>
+          <strong>{{ stats.average }}</strong>
+        </mat-card>
+
+        <mat-card class="metric-card">
+          <span>Dias com avaliações</span>
+          <strong>{{ stats.byDay.length }}</strong>
+        </mat-card>
+      </div>
+
+      <div class="admin-grid">
+        <mat-card class="panel-card chart-card">
+          <div class="panel-header">
+            <div>
+              <h2>Distribuição das notas</h2>
+              <p>Quantidade de avaliações por nota de 0 a 10.</p>
+            </div>
+          </div>
+          <div class="chart-wrapper">
+            <canvas #distributionChart></canvas>
+          </div>
+        </mat-card>
+
+        <mat-card class="panel-card day-card">
+          <h2>Avaliações por dia</h2>
+          <mat-list>
+            <mat-list-item *ngFor="let item of stats.byDay">
+              <div matListItemTitle>{{ item.day }}</div>
+              <div matListItemLine>{{ item.count }} feedback(s)</div>
+            </mat-list-item>
+          </mat-list>
+        </mat-card>
+      </div>
+    </ng-container>
+  </mat-card>
+
+  <mat-card class="table-card">
+    <div class="panel-header">
+      <div>
+        <h2>Lista de feedbacks</h2>
+        <p>Dados exibidos a partir do mock local, prontos para a API real.</p>
+      </div>
+    </div>
+
+    <div class="table-wrap">
+      <table mat-table [dataSource]="(feedbacks$ | async) ?? []" class="feedback-table">
+        <ng-container matColumnDef="descricao">
+          <th mat-header-cell *matHeaderCellDef>Descrição</th>
+          <td mat-cell *matCellDef="let feedback">{{ feedback.descricao }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="nota">
+          <th mat-header-cell *matHeaderCellDef>Nota</th>
+          <td mat-cell *matCellDef="let feedback">
+            <mat-chip-set>
+              <mat-chip color="primary" selected>{{ feedback.nota }}</mat-chip>
+            </mat-chip-set>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="data">
+          <th mat-header-cell *matHeaderCellDef>Data</th>
+          <td mat-cell *matCellDef="let feedback">{{ feedback.data | date:'dd/MM/yyyy HH:mm' }}</td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns; trackBy: trackById"></tr>
+      </table>
+    </div>
+  </mat-card>
+</section>

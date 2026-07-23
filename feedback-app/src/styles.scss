@@ -1,0 +1,49 @@
+@use '@angular/material' as mat;
+
+@include mat.core();
+
+$primary: mat.define-palette(mat.$cyan-palette, 700);
+$accent: mat.define-palette(mat.$amber-palette, 500);
+$warn: mat.define-palette(mat.$red-palette);
+$theme: mat.define-light-theme((
+	color: (
+		primary: $primary,
+		accent: $accent,
+		warn: $warn,
+	),
+	density: 0,
+));
+
+@include mat.all-component-themes($theme);
+
+:root {
+	color-scheme: light;
+	--app-bg: linear-gradient(180deg, #f6fbfc 0%, #edf7f9 100%);
+	--app-surface: rgba(255, 255, 255, 0.92);
+	--app-text: #17323a;
+	--app-muted: #5e737b;
+	--app-border: rgba(23, 50, 58, 0.1);
+	--app-accent: #007c91;
+}
+
+html,
+body {
+	height: 100%;
+}
+
+body {
+	margin: 0;
+	font-family: 'Inter', 'Segoe UI', sans-serif;
+	background: var(--app-bg);
+	color: var(--app-text);
+}
+
+a {
+	color: inherit;
+	text-decoration: none;
+}
+
+* {
+	box-sizing: border-box;
+}
+/* You can add global styles to this file, and also import other style files */

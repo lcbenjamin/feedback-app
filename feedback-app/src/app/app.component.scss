@@ -1,0 +1,80 @@
+:host {
+	display: block;
+	min-height: 100vh;
+}
+
+.app-toolbar {
+	position: sticky;
+	top: 0;
+	z-index: 1000;
+	box-shadow: 0 10px 24px rgba(7, 42, 49, 0.12);
+}
+
+.toolbar-inner {
+	width: 100%;
+	max-width: 1180px;
+	margin: 0 auto;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 1rem;
+}
+
+.toolbar-title {
+	font-size: 1.05rem;
+	font-weight: 700;
+	letter-spacing: 0.02em;
+}
+
+.toolbar-subtitle {
+	font-size: 0.78rem;
+	opacity: 0.85;
+}
+
+.toolbar-nav {
+	display: flex;
+	gap: 0.5rem;
+}
+
+.active-link {
+	background: rgba(255, 255, 255, 0.12);
+}
+
+.app-shell {
+	width: 100%;
+	max-width: 1180px;
+	margin: 0 auto;
+	padding: 2rem 1rem 4rem;
+}
+
+.app-footer {
+	display: flex;
+	justify-content: space-between;
+	gap: 1rem;
+	flex-wrap: wrap;
+	padding: 1rem 1.5rem;
+	border-top: 1px solid var(--app-border);
+	color: var(--app-muted);
+	background: rgba(255, 255, 255, 0.65);
+	backdrop-filter: blur(10px);
+}
+
+@media (max-width: 768px) {
+	.toolbar-inner {
+		flex-direction: column;
+		align-items: flex-start;
+		padding: 0.75rem 0;
+	}
+
+	.toolbar-nav {
+		width: 100%;
+	}
+
+	.toolbar-nav a {
+		flex: 1;
+	}
+
+	.app-shell {
+		padding-inline: 0.75rem;
+	}
+}
